@@ -15,9 +15,13 @@
     "@modelcontextprotocol/sdk": "^1.8.0",
     "axios": "^1.8.4",
     "better-sqlite3": "^11.9.1",
+    "chokidar": "^4.0.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "grammy": "^1.36.0",
     "openai": "^4.90.0",
-    "simple-git": "^3.27.0"
+    "schedule": "^0.5.0",
+    "simple-git": "^3.27.0",
+    "telegraf": "^4.16.3"
   }
 }
