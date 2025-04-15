@@ -4,7 +4,7 @@ import { fileURLToPath } from 'url';
 import fs from 'fs/promises';
 import { loadConfig,findItemByName } from '../utils/config.js';
 import { updateRepository } from '../utils/gitManager.js';
-import { parseCommitTable, parseMarkdownNotes } from '../utils/markdownParser.js';
+import { parseCommitTable, parseMarkdownNotes,parseTable } from '../utils/markdownParser.js';
 import { initDB } from '../utils/dbManager.js';
 
 
@@ -16,18 +16,19 @@ const DB_PATH = path.join(__dirname, '..', '..', 'data', 'datadb', 'notes.db');
 
 
 async function getgitdata(itemname) {
+  const safeItemName = itemname.replace(/-/g, '_');
   const config = await loadConfig();
-  const db = initDB(DB_PATH);
+  const db = initDB(itemname);
 
 
  
 
   const checkExistsStmt = db.prepare(`
-    SELECT 1 FROM notes 
+    SELECT 1 FROM ${safeItemName}_notes 
     WHERE repo = ? AND user = ? AND date = ?
   `);
   const insertStmt = db.prepare(`
-    INSERT INTO notes (repo, user, date, note)
+    INSERT INTO ${safeItemName}_notes (repo, user, date, note)
     VALUES (?, ?, ?, ?)
   `);
   const repoInfo=findItemByName(config,itemname)
@@ -80,12 +81,58 @@ if(repoInfo!=null){
       console.error(`Error processing repo ${repoInfo.itemname}:`, err);
     }
   }
+ /// closeDB(db)
+}
 
+async function getdailycheckin(itemname){
+  const safeItemName = itemname.replace(/-/g, '_');
+  const config = await loadConfig();
+  const db = initDB(safeItemName);
+  const repoInfo=findItemByName(config,itemname)
+  if(repoInfo!=null){
+    try {
+      
+      const repoDir = await updateRepository(repoInfo, GIT_BASE_PATH);
+      const readmePath = path.join(repoDir, 'README.md');
+      const readmeContent = await fs.readFile(readmePath, 'utf-8');
+      const result = parseTable(readmeContent);
+     // console.log(result)
+      const insertStmt = db.prepare(`
+        INSERT INTO ${safeItemName}_daily_checkin (user, date, status, is_active)
+        VALUES (@user, @date, @status, @is_active)
+        ON CONFLICT(user, date) DO UPDATE SET
+        status = @status,
+        is_active = @is_active
+      `);
+      
+        
+const transaction = db.transaction((records) => {
+  for (const record of records) {
+    insertStmt.run({
+      user: record.user,
+      date: record.date,
+      status: record.status,
+      is_active: record.is_active ? 1 : 0
+    })
+  }
+});
+     
+transaction(result);  // 执行批量插入操作
+
+console.log('数据已插入！');
+
+
+    } catch (err) {
+      console.error(`Error processing repo ${repoInfo.itemname}:`, err);
+    }
+
+}
 }
 
 
 function getdbdata(itemname,day){
-  const db = initDB(DB_PATH);
+  const safeItemName = itemname.replace(/-/g, '_');
+  const db = initDB(safeItemName);
 
   const StatData=db.prepare(`
       SELECT 
@@ -94,7 +141,7 @@ function getdbdata(itemname,day){
      strftime('%Y.%m.%d', date('now'))  AS end_date,
     COUNT(DISTINCT user) AS distinct_user_count,
     COUNT(*) AS total_note_count
-FROM notes
+FROM ${safeItemName}_notes
 WHERE repo = '${itemname}'
     AND date >=strftime('%Y.%m.%d', date('now', '-${day} days')) 
     AND date <= strftime('%Y.%m.%d', date('now'))
@@ -107,7 +154,7 @@ WHERE repo = '${itemname}'
   const notes = db
   .prepare(`
    SELECT user, date, note
-    FROM notes
+    FROM ${safeItemName}_notes
     WHERE  repo = '${itemname}'
       AND date >= strftime('%Y.%m.%d', date('now', '-${day} days')) 
       AND date <= strftime('%Y.%m.%d', date('now'))
@@ -120,9 +167,10 @@ WHERE repo = '${itemname}'
 }
 
 export async function getnewdata(itemname,day){
- 
+  await getdailycheckin(itemname)
   await getgitdata(itemname)
   const notesdata=getdbdata(itemname,day)
+ //return []
   return notesdata
 }
 

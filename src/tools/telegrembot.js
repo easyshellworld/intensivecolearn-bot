@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import { loadConfig,findItemByName,getTGtoken } from '../utils/config.js';
+import { loadConfig,findItemByName} from '../utils/config.js';
 
 import dotenv from 'dotenv';
 dotenv.config();
