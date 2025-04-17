@@ -24,5 +24,5 @@ export function startBot() {
     });
   
     bot.start();
-    console.log("bot开始监听")
+    console.log("bot开始运行")
   }
