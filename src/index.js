@@ -1,12 +1,12 @@
 // src/index.js
-import {getnewdata} from "./tools/getgitdata.js"
+/* import {getnewdata} from "./tools/getgitdata.js"
 import {telegrembot } from "./tools/telegrembot.js"
-import {getzhipu} from "./aiProvider/aiProvider.js"
+import {getzhipu} from "./aiProvider/aiProvider.js" */
+import {initScheduler} from './task/loadscedule.js'
+import { startBot} from './server/botserver.js'
 
-const itemname="Superchain"
-const days=7
 
-async function main() {
+/* async function main() {
   const learndata=await getnewdata(itemname,days)
   console.log(learndata)
   //const textdata=await getzhipu(learndata,0)
@@ -15,4 +15,8 @@ async function main() {
   //console.log(results)
 }
 
-main()
+main() */
+
+initScheduler('./conf/task.json');
+startBot()
+

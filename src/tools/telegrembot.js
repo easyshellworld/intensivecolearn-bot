@@ -1,8 +1,9 @@
 
-import axios from 'axios';
-import { loadConfig,findItemByName} from '../utils/config.js';
 
+import { loadConfig,findItemByName,getownerchatid} from '../utils/config.js';
+import { Bot } from 'grammy';
 import dotenv from 'dotenv';
+
 dotenv.config();
 
 
@@ -11,26 +12,25 @@ const BOT_TOKEN = process.env.TG_BOT;
 
 
 //const BOT_TOKEN=await getTGtoken()
+const bot = new Bot(BOT_TOKEN);
 
+export async function sendownertext(text){
+  const ownerchatid=await getownerchatid()
+  bot.api.sendMessage(ownerchatid, text);
+}
 
-async function sendMarkdownToTelegram(text,CHAT_ID) {
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`;
-  
-    try {
-      const response = await axios.post(url, {
-        chat_id: CHAT_ID,
-        text,
-        parse_mode: 'Markdown'
-      }, {
-        headers: { 'Content-Type': 'application/json' }
-      });
-  
-      return response.data;
-    } catch (error) {
-      console.error('发送失败:', error.response ? error.response.data : error.message);
-      return ('发送失败:', error.response ? error.response.data : error.message)
-    }
+export async function sendMarkdownToTelegram(chatId,text) {
+  try {
+    const response = await bot.api.sendMessage(chatId, text, {
+      parse_mode: 'Markdown'
+    });
+    return response;
+  } catch (error) {
+    console.error('发送失败:', error);
+    return error;
   }
+}
+
 
 async function getchatid(itemname){
   const config = await loadConfig();

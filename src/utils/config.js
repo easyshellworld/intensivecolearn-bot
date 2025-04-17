@@ -12,15 +12,28 @@ export async function loadConfig() {
   return JSON.parse(data);
 }
 
+export async function writerConfig(data) {
+  const configPath = path.join(__dirname, '..', '..', 'conf', 'item.json');
+  return new Promise((resolve, reject) => {
+    fs.writeFile(configPath, JSON.stringify(data,null,2), 'utf8', (err) => {
+      if (err) {
+        reject(new Error(`写入文件失败: ${err.message}`));
+      } else {
+        resolve();
+      }
+    });
+  });
+}
+
 
 export function findItemByName(items, itemname) {
   return items.find(item => item.itemname === itemname);
 }
 
-export async function getTGtoken() {
-  const configPath = path.join(__dirname, '..', '..', 'conf', 'otherconf.json');
+export async function getownerchatid() {
+  const configPath = path.join(__dirname, '..', '..', 'conf', 'task.json');
   const data = await fs.readFile(configPath, 'utf-8');
   const datajson = JSON.parse(data);
-  return datajson.TG_BOT
+  return datajson.owner_chat_id
 
 }
