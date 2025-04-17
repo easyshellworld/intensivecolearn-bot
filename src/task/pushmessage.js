@@ -6,7 +6,7 @@ import {
 } from '../tools/getgitdata.js';
 import { loadConfig, writerConfig } from '../utils/config.js';
 import { sendMarkdownToTelegram, sendownertext } from '../tools/telegrembot.js'
-import { getzhipu } from "../aiProvider/aiProvider.js"
+import { getzhipu,getdeepseek } from "../aiProvider/aiProvider.js"
 
 function handleError(error) {
   sendownertext(error.message);
@@ -88,7 +88,7 @@ async function sendWeekPush() {
     if (item.active === true && item.registration_active === false) {
       try {
         const weekdata = getweekdbdata(item.itemname, 7)
-        const markdowntext = await getzhipu(weekdata, 0)
+        const markdowntext = await getdeepseek(weekdata, 0)
         await sendMarkdownToTelegram(item.chat_id, markdowntext + "\n笔记链接：" + item.git_url)
         console.log(`完成${item.itemname}每周发送`)
       } catch (error) {
