@@ -38,6 +38,14 @@ export async function helpCommand() {
   向所有激活项目群发送指定 Markdown 内容，例如：
  /sendall **大家好，本周总结如下：**
 
+* **/sendactive <Markdown内容>**  
+  向所有活跃项目群发送指定 Markdown 内容，例如：  
+  /sendactive **本周开始新一轮冲刺！**
+
+* **/sendnum <Markdown内容>` `<编号范围>**  
+  向指定编号范围内的项目群发送 Markdown 内容，例如：  
+  /sendnum  1-5 **进度更新：模块完成80%** 
+
 * **/adds<时间><函数名> [参数1 参数2 ...]**
   添加一个定时任务，指定时间、调用函数及参数，例如：
  /adds D19:20 * * * sendall **早安！今天继续努力学习！**

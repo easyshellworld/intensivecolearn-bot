@@ -8,6 +8,9 @@ import {
     pullgitdata,
     sendDayPush,
     sendWeekPush,
+    sendActivePush,
+    sendnumPush,
+    sendAllPush
 } from "./pushmessage.js";
 
 
@@ -18,6 +21,9 @@ const functions = {
     pullgitdata,
     sendDayPush,
     sendWeekPush,
+    sendActivePush,
+    sendnumPush,
+    sendAllPush
    
 };
 
