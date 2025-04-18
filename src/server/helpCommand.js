@@ -42,7 +42,7 @@ export async function helpCommand() {
   向所有活跃项目群发送指定 Markdown 内容，例如：  
   /sendactive **本周开始新一轮冲刺！**
 
-* **/sendnum <Markdown内容>` `<编号范围>**  
+* **/sendnum <Markdown内容> <编号范围>**  
   向指定编号范围内的项目群发送 Markdown 内容，例如：  
   /sendnum  1-5 **进度更新：模块完成80%** 
 
