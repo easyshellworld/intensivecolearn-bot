@@ -38,7 +38,7 @@ async function sendWeekPush() {
     if (item.active === true && item.registration_active === false) {
       try {
         const weekdata = await getnews() //获取数据
-        const markdowntext = await getdeepseek(weekdata, 0) //调用模型
+        const markdowntext = await getdeepseek(JSON.stringify(weekdata), 0) //调用模型
         await sendMarkdownToTelegram(item.chat_id, markdowntext)
         console.log(`完成${item.itemname}每周发送`)
       } catch (error) {

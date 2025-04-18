@@ -8,7 +8,9 @@ import * as cheerio from 'cheerio';
  */
 async function extractPushMessages(urlconf) {
     // 启动浏览器
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        args: ['--no-sandbox', '--disable-setuid-sandbox'] 
+    });
     const page = await browser.newPage();
 
     // 导航到目标网页
@@ -43,7 +45,7 @@ async function extractPushMessages(urlconf) {
 }
 
 const urlconfs=[
-   {
+    {
         url:'https://www.panewslab.com/zh/news/index.html',
         block:'.item',
         title:'.n-title.pushMessage',
@@ -54,10 +56,10 @@ const urlconfs=[
         block:'.news-flash-wrapper',
         title:'.news-flash-title-text',
         pushMessage:'.news-flash-item-content'
-    }, 
+    },
     {
         url:'https://www.odaily.news/newsflash',
-        block:'div ._10Kq18pH',
+        block:'div._10Kq18pH',
         title:'div.hZVqeSqH',
         pushMessage:'div._27drOVYG'
     }
@@ -80,18 +82,3 @@ async function getnews() {
 
 export {getnews}
 
-// 测试函数
-/* (async () => {
-   
-    try {
-       
-        let newgetnewarr= await extractPushMessages(urlconfs[0]);
-
-        
-        const arr= await extractPushMessages(urlconfs[1]);
-        newgetnewarr.push(...arr)
-        console.log(JSON.stringify(messages1, null, 2)); // 打印提取的信息
-    } catch (error) {
-        console.error('Error extracting messages:', error);
-    }
-})(); */
