@@ -7,8 +7,7 @@ export async function initInstall() {
     const __dirname = path.dirname(__filename);
     const rootDir = path.resolve(__dirname, '..');
     const folders = [
-        path.join(rootDir, 'data', 'datadb'),
-        path.join(rootDir, 'data', 'githubgit'),
+      
         path.join(rootDir, 'conf'),
     ];
 
@@ -34,10 +33,9 @@ export async function initInstall() {
             content: JSON.stringify({
                 owner_chat_id: '',
                 task: [
-                    { id: 0, time: 'D00:01', task: 'checkItem' },
-                    { id: 1, time: 'D00:11', task: 'pullgitdata' },
-                    { id: 2, time: 'D23:11', task: 'sendDayPush' },
-                    { id: 3, time: 'W3:18:29', task: 'sendWeekPush' },
+                 
+                    { id: 0, time: 'D23:11', task: 'sendDayPush' },
+                    { id: 1, time: 'W3:18:29', task: 'sendWeekPush' },
                 ],
             }, null, 2),
         }

@@ -4,8 +4,7 @@ import schedule from 'node-schedule';
 import chokidar from 'chokidar';
 
 import {
-    checkItem,
-    pullgitdata,
+   
     sendDayPush,
     sendWeekPush,
 } from "./pushmessage.js";
@@ -14,8 +13,7 @@ import {
 
 // 函数映射表
 const functions = {
-    checkItem,
-    pullgitdata,
+   
     sendDayPush,
     sendWeekPush,
    

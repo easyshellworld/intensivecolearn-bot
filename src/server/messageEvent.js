@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { sendMarkdownToTelegram, sendownertext} from "../tools/telegrembot.js"
 import { helpCommand } from "./helpCommand.js"
+import { sendWeekPush } from '../task/pushmessage.js';
 
 
 
@@ -278,7 +279,19 @@ const messageEvent = {
       }
     },
 
+  },
+  sendnews:{
+    action: async (externalParam) => {
+      try {
+        sendWeekPush();
+      } catch (error) {
+        handleError(error);
+      }
+    },
+
   }
+
+
 };
 
 export default messageEvent;
