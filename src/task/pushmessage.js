@@ -6,7 +6,7 @@ import {
 } from '../tools/getgitdata.js';
 import { loadConfig, writerConfig } from '../utils/config.js';
 import { sendMarkdownToTelegram, sendownertext } from '../tools/telegrembot.js'
-import { getzhipu,getdeepseek } from "../aiProvider/aiProvider.js"
+import { getzhipu, getdeepseek } from "../aiProvider/aiProvider.js"
 
 function handleError(error) {
   sendownertext(error.message);
@@ -99,12 +99,62 @@ async function sendWeekPush() {
   }
 }
 
+async function sendActivePush(message) {
+  const itemdata = await loadConfig()
+  for (const item of itemdata) {
+    if (item.active === true) {
+      try {
+        await sendMarkdownToTelegram(item.chat_id, message)
+        console.log(`完成${item.itemname}群组信息发送`)
+      } catch (error) {
+        handleError(error);
+      }
+
+    }
+  }
+}
+
+async function sendnumPush(item_id, message) {
+  const itemdata = await loadConfig()
+  const [start, end] = item_id.split('-').map(Number);
+  for (let i = start; i <= end; i++) {
+
+    try {
+      await sendMarkdownToTelegram(itemdata[i].chat_id, message)
+      console.log(`完成${itemdata[i].itemname}群组信息发送`)
+    } catch (error) {
+      handleError(error);
+    }
+  }
+}
+
+
+async function sendAllPush(message) {
+  const itemdata = await loadConfig()
+  for (const item of itemdata) {
+
+    try {
+      await sendMarkdownToTelegram(item.chat_id, message)
+      console.log(`完成${item.itemname}群组信息发送`)
+    } catch (error) {
+      handleError(error);
+    }
+
+  }
+}
+
+
+
 
 export {
   checkItem,
   pullgitdata,
   sendDayPush,
   sendWeekPush,
+  sendActivePush,
+  sendnumPush,
+  sendAllPush
+
 
 }
 

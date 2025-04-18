@@ -1,11 +1,16 @@
 import fs from 'fs';
-import { sendMarkdownToTelegram, sendownertext} from "../tools/telegrembot.js"
+import { sendMarkdownToTelegram, sendownertext } from "../tools/telegrembot.js"
 import { helpCommand } from "./helpCommand.js"
+import {
+  sendActivePush,
+  sendnumPush,
+  sendAllPush
+} from "../task/pushmessage.js"
 
 
 
-const loaditempath="./conf/item.json"
-const loadtaskpath='./conf/task.json'
+const loaditempath = "./conf/item.json"
+const loadtaskpath = './conf/task.json'
 
 
 // 读取JSON文件
@@ -21,7 +26,7 @@ async function readJsonFile(filePath) {
 // 写入JSON文件
 async function writeJsonFile(filePath, data) {
   return new Promise((resolve, reject) => {
-    fs.writeFile(filePath, JSON.stringify(data,null,2), 'utf8', (err) => {
+    fs.writeFile(filePath, JSON.stringify(data, null, 2), 'utf8', (err) => {
       if (err) {
         reject(new Error(`写入文件失败: ${err.message}`));
       } else {
@@ -73,26 +78,26 @@ async function deleteitemFromJson(filePath, externalParam) {
 }
 
 
-  async function deleteTaskFromJson(filePath, externalParam) {
-    let item = '';
-    await updateJsonFile(filePath, (datajson) => {
-      let tasks = datajson.task;
-      item = JSON.stringify(tasks[externalParam[1]]);
-  
-      if (tasks.length > 0) {
-        if (externalParam?.[2] !== undefined) {
-          const num = parseInt(externalParam[1], 10) + parseInt(externalParam[2], 10) - 1;
-          item = `${item}-${JSON.stringify(tasks[num])}\n${externalParam[2]}`;
-          tasks.splice(externalParam[1], externalParam[2]);
-        } else {
-          tasks.splice(externalParam[1], 1);
-        }
+async function deleteTaskFromJson(filePath, externalParam) {
+  let item = '';
+  await updateJsonFile(filePath, (datajson) => {
+    let tasks = datajson.task;
+    item = JSON.stringify(tasks[externalParam[1]]);
+
+    if (tasks.length > 0) {
+      if (externalParam?.[2] !== undefined) {
+        const num = parseInt(externalParam[1], 10) + parseInt(externalParam[2], 10) - 1;
+        item = `${item}-${JSON.stringify(tasks[num])}\n${externalParam[2]}`;
+        tasks.splice(externalParam[1], externalParam[2]);
+      } else {
+        tasks.splice(externalParam[1], 1);
       }
-      tasks.forEach((task, index) => {
-        task.id = index;
-      });
-      datajson.task = tasks;
+    }
+    tasks.forEach((task, index) => {
+      task.id = index;
     });
+    datajson.task = tasks;
+  });
 
   // Send notification with the removed item details
   sendownertext(`删除：${item}`);
@@ -101,12 +106,12 @@ async function deleteitemFromJson(filePath, externalParam) {
 // action 操作定义
 const messageEvent = {
   initchatid: {
-    action: async (externalParam,chatid) => {
+    action: async (externalParam, chatid) => {
       try {
-        
-        await updateJsonFile(loadtaskpath, (datajson) => {    
-          datajson.owner_chat_id=chatid
-          
+
+        await updateJsonFile(loadtaskpath, (datajson) => {
+          datajson.owner_chat_id = chatid
+
         });
         sendownertext(`完成拥有者chatid更新：${chatid}`);
       } catch (error) {
@@ -115,23 +120,23 @@ const messageEvent = {
     },
   },
   add: {
-    action: async (externalParam,chatid) => {
+    action: async (externalParam, chatid) => {
       try {
-        let newid=0;
-        await updateJsonFile(loaditempath, (datajson) => {    
-          newid=datajson.length
+        let newid = 0;
+        await updateJsonFile(loaditempath, (datajson) => {
+          newid = datajson.length
           datajson.push({
-            id:newid,
+            id: newid,
             itemname: externalParam[1],
             git_url: `https://github.com/IntensiveCoLearning/${externalParam[1]}.git`,
             chat_id: chatid,
-            start_date:externalParam[2],
-            end_date:externalParam[3],
-            signupDeadline:externalParam[4],
-            active:true,
-            registration_active:true,
+            start_date: externalParam[2],
+            end_date: externalParam[3],
+            signupDeadline: externalParam[4],
+            active: true,
+            registration_active: true,
           });
-          
+
         });
         sendownertext(`加入：id:${newid}\n仓库链接：https://github.com/IntensiveCoLearning/${externalParam[1]}.git\n开始时间：${externalParam[2]} 结束时间：${externalParam[3]} 报名截止时间：${externalParam[4]}`);
       } catch (error) {
@@ -143,12 +148,12 @@ const messageEvent = {
     action: async (externalParam) => {
       try {
         let data = '';
-        if(externalParam?.[1] == "1"){
+        if (externalParam?.[1] == "1") {
           data = fs.readFileSync(loadtaskpath, 'utf-8');
         }
-        else{
+        else {
           data = fs.readFileSync(loaditempath, 'utf-8');
-        } 
+        }
         const datajson = JSON.parse(data);
         sendownertext(JSON.stringify(datajson, null, 2));
       } catch (error) {
@@ -166,16 +171,16 @@ const messageEvent = {
     },
   },
   changeid: {
-    action: async (externalParam,chatid) => {
+    action: async (externalParam, chatid) => {
       try {
-        await updateJsonFile(loaditempath, (datajson) => {    
-         
-          datajson[externalParam[1]].chat_id=chatid;
-            
-          });
-        const datajson= await readJsonFile(loaditempath)  
+        await updateJsonFile(loaditempath, (datajson) => {
+
+          datajson[externalParam[1]].chat_id = chatid;
+
+        });
+        const datajson = await readJsonFile(loaditempath)
         sendownertext(`改变${datajson[externalParam[1]].itemname}项目chatid：${datajson[externalParam[1]].chat_id}`);
-       
+
       } catch (error) {
         handleError(error);
       }
@@ -184,12 +189,12 @@ const messageEvent = {
   stop: {
     action: async (externalParam) => {
       try {
-        await updateJsonFile(loaditempath, (datajson) => {    
-         
-          datajson[externalParam[1]].active=false;
-            
-          });
-        const datajson= await readJsonFile(loaditempath)  
+        await updateJsonFile(loaditempath, (datajson) => {
+
+          datajson[externalParam[1]].active = false;
+
+        });
+        const datajson = await readJsonFile(loaditempath)
         sendownertext(`改变${datajson[externalParam[1]].itemname}项目激活状态：${datajson[externalParam[1]].active}`);
       } catch (error) {
         handleError(error);
@@ -199,61 +204,74 @@ const messageEvent = {
   start: {
     action: async (externalParam) => {
       try {
-        await updateJsonFile(loaditempath, (datajson) => {    
-         
-          datajson[externalParam[1]].active=true;
-            
-          });
-        const datajson= await readJsonFile(loaditempath)  
+        await updateJsonFile(loaditempath, (datajson) => {
+
+          datajson[externalParam[1]].active = true;
+
+        });
+        const datajson = await readJsonFile(loaditempath)
         sendownertext(`改变${datajson[externalParam[1]].itemname}项目激活状态：${datajson[externalParam[1]].active}`);
       } catch (error) {
         handleError(error);
       }
     },
   },
- 
+
   sendall: {
     action: async (externalParam) => {
       try {
-        const itemdata=await readJsonFile(loaditempath)
-        for(const item of itemdata){
-          if(item.active === true){
-            await sendMarkdownToTelegram(item.chat_id,externalParam[1])
-          }
-          
-        }
-        
-       // sendownertext();
-      } catch (error) {
+        sendAllPush(externalParam[1])
+      }
+      catch (error) {
         handleError(error);
       }
     },
-  }, 
+  },
+  sendactive: {
+    action: async (externalParam) => {
+      try {
+        sendActivePush(externalParam[1])
+      }
+      catch (error) {
+        handleError(error);
+      }
+    },
+  },
+  sendnum: {
+    action: async (externalParam) => {
+      try {
+        sendnumPush(externalParam[1],externalParam[2])
+      }
+      catch (error) {
+        handleError(error);
+      }
+    },
+  },
   adds: {
     action: async (externalParam) => {
       try {
-          let newid=0;
-          await updateJsonFile(loadtaskpath, (datajson) => { 
-            newid=datajson.task.length;
-            const newTask = {
-              id:newid,
-              time: externalParam[1],
-              task: externalParam[2],
-            };
-      
-            // If externalParam[3] exists, populate the `args` field with [externalParam[3], externalParam[4], ...]
-            if (externalParam[3] !== undefined) {
-              newTask.args = externalParam.slice(3);
-            }
-      
-            datajson.task.push(newTask);
-          });
+        let newid = 0;
+        await updateJsonFile(loadtaskpath, (datajson) => {
+          newid = datajson.task.length;
+          const newTask = {
+            id: newid,
+            time: externalParam[1],
+            task: externalParam[2],
+          };
 
-          const argsDescription = externalParam[3]
+          // If externalParam[3] exists, populate the `args` field with [externalParam[3], externalParam[4], ...]
+          if (externalParam[3] !== undefined) {
+            newTask.args = externalParam.slice(3);
+          }
+
+          datajson.task.push(newTask);
+        });
+
+        const argsDescription = externalParam[3]
           ? `\n参数:${JSON.stringify(externalParam.slice(3))}`
           : '';
-          sendownertext(`加入定时任务:\nid:${newid}\n时间:${externalParam[1]}\n函数:${externalParam[2]}\n${argsDescription}`);
-   
+        sendownertext(`加入定时任务:\nid:${newid}\n时间:${externalParam[1]}\n函数:${externalParam[2]}\n${argsDescription}`);
+
       } catch (error) {
         handleError(error);
       }
@@ -268,8 +286,8 @@ const messageEvent = {
       }
     },
   },
- 
-  help:{
+
+  help: {
     action: async (externalParam) => {
       try {
         helpCommand();
