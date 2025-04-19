@@ -14,9 +14,10 @@ export async function helpCommand() {
  /add test-project 2025-04-20 2025-05-20 2025-04-25
 
 * **/list**
-  查看所有项目或任务，默认列出项目列表，添加参数1 可查看定时任务，例如：
- /list
- /list 1
+  查看所有项目或任务，默认或者<program>列出项目列表，添加参数<task>可查看定时任务，例如：  
+  /list
+  /list program 
+  /list task
 
 * **/rm<项目ID>**
   删除指定项目，例如：
@@ -44,7 +45,9 @@ export async function helpCommand() {
 
 * **/sendnum <Markdown内容> <编号范围>**  
   向指定编号范围内的项目群发送 Markdown 内容，例如：  
-  /sendnum  1-5 **进度更新：模块完成80%** 
+  /sendnum  1-5 **进度更新：模块完成80%**   发送连续编号频道
+  /sendnum  2,5  **进度更新：模块完成80%**  发送指定编号频道
+
 
 * **/adds<时间><函数名> [参数1 参数2 ...]**
   添加一个定时任务，指定时间、调用函数及参数，例如：
