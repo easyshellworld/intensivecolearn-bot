@@ -3,8 +3,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 
-const zhipukey=process.env.ZHIPU_KEY
-const deepseekkey=process.env.DEEPSEEK_KEY
+const zhipukey=process.env.ZHIPU_KEY ?? 'test'
+const deepseekkey=process.env.DEEPSEEK_KEY ?? 'test'
 
 const deepseek = {
   api: new OpenAI({
