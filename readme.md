@@ -28,7 +28,7 @@ npm run start
 在Telegram与机器人聊天界面输入以下命令：`/initchatid`
 
 ## 功能命令简介
-* **/initchatid`**
+* **/initchatid**
   初始化拥有者 chatid，例如：  
   `/initchatid`
 
@@ -45,7 +45,7 @@ npm run start
   删除指定项目，例如：  
   `/rm 2`
 
-* **/changeid `<项目ID>` `<新chatid>`**
+* **/changeid `<项目ID>`**
   需要在对应的聊天频道操作，更换项目绑定的 chatid，例如：  
   `/changeid 2`
 

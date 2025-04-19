@@ -22,7 +22,7 @@ export async function helpCommand() {
   删除指定项目，例如：
  /rm 2
 
-* **/changeid<项目ID><新chatid>**
+* **/changeid<项目ID>**
   需要在对应的聊天频道操作，更换项目绑定的 chatid，例如：
  /changeid 2 
 
