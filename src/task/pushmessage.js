@@ -116,12 +116,24 @@ async function sendActivePush(message) {
 
 async function sendnumPush(item_id, message) {
   const itemdata = await loadConfig()
-  const [start, end] = item_id.split('-').map(Number);
-  for (let i = start; i <= end; i++) {
+  let numbers = [];
+  if (item_id.includes(',')) {
+    // 增加不连续数字 (e.g., "2,3,4,5,7,8")
+    numbers = item_id.split(',').map(Number);
+  } else if (item_id.includes('-')) {
+    // 连续数字 (e.g., "1-5")
+    const [start, end] = item_id.split('-').map(Number);
+    for (let i = start; i <= end; i++) {
+      numbers.push(i);
+    }
+  } else {  
+    numbers.push(Number(item_id));
+  }
 
+  for (const num of numbers) {
     try {
-      await sendMarkdownToTelegram(itemdata[i].chat_id, message)
-      console.log(`完成${itemdata[i].itemname}群组信息发送`)
+      await sendMarkdownToTelegram(itemdata[num].chat_id, message);
+      console.log(`完成${itemdata[num].itemname}群组信息发送`);
     } catch (error) {
       handleError(error);
     }

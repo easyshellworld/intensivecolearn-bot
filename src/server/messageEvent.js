@@ -148,10 +148,13 @@ const messageEvent = {
     action: async (externalParam) => {
       try {
         let data = '';
-        if (externalParam?.[1] == "1") {
+        if (externalParam?.[1] == "task") {
           data = fs.readFileSync(loadtaskpath, 'utf-8');
         }
-        else {
+        else if (externalParam?.[1] == "program") 
+         {
+          data = fs.readFileSync(loaditempath, 'utf-8');
+        }else{
           data = fs.readFileSync(loaditempath, 'utf-8');
         }
         const datajson = JSON.parse(data);
