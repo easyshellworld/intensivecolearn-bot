@@ -119,7 +119,7 @@ const messageEvent = {
       }
     },
   },
-  add: {
+  addprogram: {
     action: async (externalParam, chatid) => {
       try {
         let newid = 0;
@@ -164,7 +164,7 @@ const messageEvent = {
       }
     },
   },
-  rm: {
+  rmprogram: {
     action: async (externalParam) => {
       try {
         deleteitemFromJson(loaditempath, externalParam)
@@ -223,7 +223,8 @@ const messageEvent = {
   sendall: {
     action: async (externalParam) => {
       try {
-        sendAllPush(externalParam[1])
+        const message = externalParam.slice(1).join(' ');
+        sendAllPush(message)
       }
       catch (error) {
         handleError(error);
@@ -233,7 +234,8 @@ const messageEvent = {
   sendactive: {
     action: async (externalParam) => {
       try {
-        sendActivePush(externalParam[1])
+        const message = externalParam.slice(1).join(' ');
+        sendActivePush(message)
       }
       catch (error) {
         handleError(error);
@@ -243,14 +245,15 @@ const messageEvent = {
   sendnum: {
     action: async (externalParam) => {
       try {
-        sendnumPush(externalParam[1],externalParam[2])
+        const message = externalParam.slice(2).join(' ');
+        sendnumPush(externalParam[1],message)
       }
       catch (error) {
         handleError(error);
       }
     },
   },
-  adds: {
+  addtask: {
     action: async (externalParam) => {
       try {
         let newid = 0;
@@ -280,7 +283,7 @@ const messageEvent = {
       }
     },
   },
-  rms: {
+  rmtask: {
     action: async (externalParam) => {
       try {
         deleteTaskFromJson(loadtaskpath, externalParam)

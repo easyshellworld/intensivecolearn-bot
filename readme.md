@@ -34,9 +34,9 @@ npm run start
 ![](./png/initchatid.png)
 
 
-* **/add `<项目名称>` `<开始时间>` `<结束时间>` `<报名截止时间>`**
+* **/addprogram `<项目名称>` `<开始时间>` `<结束时间>` `<报名截止时间>`**
  需要在对应的聊天频道操作， 添加新项目，自动生成 GitHub 仓库链接，例如：  
-  `/add test-project 2025-04-20 2025-05-20 2025-04-25`
+  `/addprogram test-project 2025-04-20 2025-05-20 2025-04-25`
   ![](./png/add.PNG)
 
 * **/list**
@@ -47,9 +47,9 @@ npm run start
    ![](./png/list.PNG) 
    ![](./png/list1.PNG) 
 
-* **/rm `<项目ID>`**
+* **/rmprogram `<项目ID>`**
   删除指定项目，例如：  
-  `/rm 2`
+  `/rmprogram 2`
   ![](./png/rm.PNG) 
 
 * **/changeid `<项目ID>`**
@@ -78,9 +78,9 @@ npm run start
   `/sendnum  1-5 **进度更新：模块完成80%** `  发送连续编号频道
   `/sendnum  2,5  **进度更新：模块完成80%** ` 发送指定编号频道
 ![](./png/sendmessage.PNG)
-* **/adds `<时间>` `<函数名>` [参数1 参数2 ...]**
+* **/addtask `<时间>` `<函数名>` [参数1 参数2 ...]**
   添加一个定时任务，指定时间、调用函数及参数，例如：  
-  `/adds W3:19:30 sendall 最新学习计划!`
+  `/addtask W3:19:30 sendall 最新学习计划!`
 ![](./png/adds.PNG)
 ```
   时间设置格式：      # 时区UTC+8
@@ -89,9 +89,9 @@ npm run start
   2025-04-17-19:30  # 具体时间2025年4月17日19:30
 ```
 
-* **/rms `<任务ID>`**
+* **/rmtask `<任务ID>`**
   删除指定的定时任务，例如：  
-  `/rms 0`
+  `/rmtask 0`
   ![](./png/rms.PNG)
 
 * **/help**
@@ -174,5 +174,4 @@ npm run start
     * 错误处理：捕获并处理过程中的任何错误
 
 
-![](./png/getcoin.PNG)
 
