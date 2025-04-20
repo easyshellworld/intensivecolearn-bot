@@ -31,31 +31,24 @@ npm run start
 * **/initchatid**
   初始化拥有者 chatid，例如：  
   `/initchatid`
-![](./png/initchatid.png)
-
 
 * **/add `<项目名称>` `<开始时间>` `<结束时间>` `<报名截止时间>`**
  需要在对应的聊天频道操作， 添加新项目，自动生成 GitHub 仓库链接，例如：  
   `/add test-project 2025-04-20 2025-05-20 2025-04-25`
-  ![](./png/add.PNG)
 
 * **/list**
   查看所有项目或任务，默认或者`program`列出项目列表，添加参数 `task` 可查看定时任务，例如：  
   `/list`  
   `/list program`  
   `/list task`
-   ![](./png/list.PNG) 
-   ![](./png/list1.PNG) 
 
 * **/rm `<项目ID>`**
   删除指定项目，例如：  
   `/rm 2`
-  ![](./png/rm.PNG) 
 
 * **/changeid `<项目ID>`**
   需要在对应的聊天频道操作，更换项目绑定的 chatid，例如：  
   `/changeid 2`
-  ![](./png/changeid.PNG) 
 
 * **/stop `<项目ID>`**
   将指定项目设为非激活状态，例如：  
@@ -77,11 +70,11 @@ npm run start
   向指定编号范围内的项目群发送 Markdown 内容，例如：  
   `/sendnum  1-5 **进度更新：模块完成80%** `  发送连续编号频道
   `/sendnum  2,5  **进度更新：模块完成80%** ` 发送指定编号频道
-![](./png/sendmessage.PNG)
+
 * **/adds `<时间>` `<函数名>` [参数1 参数2 ...]**
   添加一个定时任务，指定时间、调用函数及参数，例如：  
   `/adds W3:19:30 sendall 最新学习计划!`
-![](./png/adds.PNG)
+
 ```
   时间设置格式：      # 时区UTC+8
   D19:20            # 每天19：30
@@ -92,7 +85,6 @@ npm run start
 * **/rms `<任务ID>`**
   删除指定的定时任务，例如：  
   `/rms 0`
-  ![](./png/rms.PNG)
 
 * **/help**
   查看所有可用命令的说明，例如：  
@@ -133,7 +125,7 @@ npm run start
       * 笔记链接
     * 通过Telegram发送统计信息(`sendMarkdownToTelegram()`)
     * 错误处理：捕获并处理过程中的任何错误
- ![](./png/senddaypush.PNG)
+
 * **sendWeekPush()**
   * **功能**：发送每周学习数据汇总
     * 加载配置数据
@@ -142,7 +134,7 @@ npm run start
     * 使用AI辅助分析生成周报(`getdeepseek()`)
     * 通过Telegram发送周报及笔记链接
     * 错误处理：捕获并处理过程中的任何错误
- ![](./png/sendweekpush.PNG)
+
 * **sendActivePush(message)**
   * **功能**：向所有活跃项目群发送消息
     * 参数：`message` - 要发送的Markdown格式消息
@@ -173,6 +165,4 @@ npm run start
     * 记录发送完成的日志
     * 错误处理：捕获并处理过程中的任何错误
 
-
-![](./png/getcoin.PNG)
 
