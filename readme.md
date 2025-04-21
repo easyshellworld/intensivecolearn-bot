@@ -20,6 +20,13 @@ OWNER=            # 管理人员Telegram用户名
 ```
 npm run initinstall
 ```
+  * 如果需要使用拉取分支`conf`导入部分更新配置
+  ```
+  git checkout conf # 切换到conf分支 
+  git pull origin conf  #拉取conf分支
+  git checkout maser #返回主分支,注意原有的conf文件会消失，做好提前备份 
+  git archive conf conf/ | tar -x -C ./ #抽取/conf分支覆盖/conf
+  ```
 * 运行程序
 ```
 npm run start
