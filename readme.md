@@ -80,7 +80,7 @@ npm run start
 ![](./png/sendmessage.PNG)
 * **/addtask `<时间>` `<函数名>` [参数1 参数2 ...]**
   添加一个定时任务，指定时间、调用函数及参数，例如：  
-  `/addtask W3:19:30 sendall 最新学习计划!`
+  `/addtask W3:19:30 sendAllPush 最新学习计划!`
 ![](./png/adds.PNG)
 ```
   时间设置格式：      # 时区UTC+8

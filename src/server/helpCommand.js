@@ -51,7 +51,7 @@ export async function helpCommand() {
 
 * **/addtask<时间><函数名> [参数1 参数2 ...]**
   添加一个定时任务，指定时间、调用函数及参数，例如：
- /addtask D19:20 * * * sendall **早安！今天继续努力学习！**
+ /addtask W3:19:30 sendAllPush 最新学习计划!
   时间设置格式：      # 时区UTC+8
   D19:20            # 每天19：30
   W3:19:30          # 每周三19:30
