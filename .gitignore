@@ -69,7 +69,7 @@ config/local.json
 !express.d.ts
 
 #忽略数据文件
-conf/item.json
-conf/task.json
+#conf/item.json
+#conf/task.json
 data/datadb/
 data/githubgit/

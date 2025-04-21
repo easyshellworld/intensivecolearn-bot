@@ -1,0 +1,25 @@
+{
+  "owner_chat_id":null,
+  "task": [
+    {
+      "id": 0,
+      "time": "D00:00",
+      "task": "checkItem"
+    },
+    {
+      "id": 1,
+      "time": "D00:01",
+      "task": "pullgitdata"
+    },
+    {
+      "id": 2,
+      "time": "D20:00",
+      "task": "sendDayPush"
+    },
+    {
+      "id": 3,
+      "time": "W4:18:00",
+      "task": "sendWeekPush"
+    }
+  ]
+}
