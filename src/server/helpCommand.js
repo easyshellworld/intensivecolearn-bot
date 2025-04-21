@@ -27,6 +27,10 @@ export async function helpCommand() {
   需要在对应的聊天频道操作，更换项目绑定的 chatid，例如：
  /changeid 2 
 
+* **/clearchatid<项目ID>**
+ 清除对应项目绑定的 chatid，例如：
+ /clearchatid 0
+
 * **/stop<项目ID>**
   将指定项目设为非激活状态，例如：
  /stop 1

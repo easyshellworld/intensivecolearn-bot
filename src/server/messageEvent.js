@@ -204,6 +204,22 @@ const messageEvent = {
       }
     },
   },
+  clearchatid: {
+    action: async (externalParam) => {
+      try {
+        await updateJsonFile(loaditempath, (datajson) => {
+
+          datajson[externalParam[1]].chat_id = null;
+
+        });
+        const datajson = await readJsonFile(loaditempath)
+        sendownertext(`改变${datajson[externalParam[1]].itemname}项目chatid：${datajson[externalParam[1]].chat_id}`);
+
+      } catch (error) {
+        handleError(error);
+      }
+    },
+  },
   stop: {
     action: async (externalParam) => {
       try {
