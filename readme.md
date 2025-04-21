@@ -67,7 +67,7 @@ npm run start
 * **/clearchatid `<项目ID>`**
   清除对应项目绑定的 chatid，例如：，例如：  
   `/clearchatid 0`
-  ![](./png/chearchatid.PNG) 
+  ![](./png/clearchatid.PNG) 
 
 * **/stop `<项目ID>`**
   将指定项目设为非激活状态，例如：  
