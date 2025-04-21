@@ -55,6 +55,21 @@ async function updateJsonFile(filePath, updateFunc) {
   }
 }
 
+//message拼接函数
+function  formatMessage(externalParam){
+  if(externalParam[2]==="sendActivePush" || externalParam[2]==="sendAllPush"){
+    const message = externalParam.slice(3).join(' ');
+    return [message]
+  }else if(externalParam[2]==="sendnumPush"){
+    const message = externalParam.slice(4).join(' ');
+    return [externalParam[3],message]
+  }else{
+    return externalParam.slice(3)
+  }
+
+}
+
+
 async function deleteitemFromJson(filePath, externalParam) {
   let item = '';
   await updateJsonFile(filePath, (datajson) => {
@@ -267,14 +282,14 @@ const messageEvent = {
 
           // If externalParam[3] exists, populate the `args` field with [externalParam[3], externalParam[4], ...]
           if (externalParam[3] !== undefined) {
-            newTask.args = externalParam.slice(3);
+            newTask.args = formatMessage(externalParam);
           }
 
           datajson.task.push(newTask);
         });
 
         const argsDescription = externalParam[3]
-          ? `\n参数:${JSON.stringify(externalParam.slice(3))}`
+          ? `\n参数:${JSON.stringify(formatMessage(externalParam))}`
           : '';
         sendownertext(`加入定时任务:\nid:${newid}\n时间:${externalParam[1]}\n函数:${externalParam[2]}\n${argsDescription}`);
 

@@ -1,0 +1,34 @@
+{
+  "owner_chat_id": -4763795854,
+  "task": [
+    {
+      "id": 0,
+      "time": "D00:00",
+      "task": "checkItem"
+    },
+    {
+      "id": 1,
+      "time": "D00:01",
+      "task": "pullgitdata"
+    },
+    {
+      "id": 2,
+      "time": "D20:00",
+      "task": "sendDayPush"
+    },
+    {
+      "id": 3,
+      "time": "W4:18:00",
+      "task": "sendWeekPush"
+    },
+    {
+      "id": 4,
+      "time": "D11:13",
+      "task": "sendnumPush",
+      "args": [
+        "0-0",
+        "test wejwrw"
+      ]
+    }
+  ]
+}

@@ -20,7 +20,7 @@ export async function sendownertext(text) {
 }
 
 export async function sendMarkdownToTelegram(chatId, text) {
-  if (chatId != '' || !chatId) {
+  if (chatId != '' || chatId!=null) {
     try {
       const response = await bot.api.sendMessage(chatId, text, {
         parse_mode: 'Markdown'
