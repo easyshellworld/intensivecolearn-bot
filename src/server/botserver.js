@@ -15,11 +15,14 @@ export function startBot() {
   
     bot.on('message', async (ctx) => {
       const chatId = ctx.chat.id;
+      const messagethreadid=ctx.message.message_thread_id;
       
       // 如果消息是来自于设定的 owner 用户
       if (ctx.from.username === owner) {
         console.log('收到消息:', ctx.message.text);
-        await getmessage(ctx.message.text, chatId);
+        console.log(JSON.stringify(ctx,null,2));
+        console.log(ctx.message.message_thread_id)
+        await getmessage(ctx.message.text, chatId,messagethreadid);
       }
     });
   

@@ -28,12 +28,24 @@ export async function sendownertext(text) {
     }
   }
 }
-export async function sendMarkdownToTelegram(chatId, text) {
-  if (chatId != '' || chatId!=null) {
+export async function sendMarkdownToTelegram(chatId, messageThreadId, text) {
+  if (chatId != '' || chatId != null) {
+
     try {
-      const response = await bot.api.sendMessage(chatId, text, {
-        parse_mode: 'Markdown'
-      });
+      let response
+      if (messageThreadId) {
+          response = await bot.api.sendMessage(chatId, text, {
+          message_thread_id: messageThreadId,
+          parse_mode: 'Markdown',      // 或者试试 'MarkdownV2'
+          disable_web_page_preview: true,
+        });
+      } else {
+         response = await bot.api.sendMessage(chatId, text, {
+          // message_thread_id: messageThreadId,  // 注意是对象里的字段
+
+          parse_mode: 'Markdown'
+        });
+      }
       return response;
     } catch (error) {
       console.error('发送失败:', error);
