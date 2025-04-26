@@ -70,7 +70,7 @@ async function sendDayPush() {
       try {
         const daydata = getdaydbdata(item.itemname, 1)[0]
         const markdowntext = `**${item.itemname}**\n昨日共学情况:\n完成学习人数：${daydata.completed_checkins}\n请假人数：${daydata.vacation_days}\n淘汰人数：${daydata.eliminated_users}\n当前存活人数：${daydata.active_users}\n笔记链接：${item.git_url}`
-        await sendMarkdownToTelegram(item.chat_id, item.message_thread_id,markdowntext)
+        await sendMarkdownToTelegram(item.chat_id,markdowntext)
         console.log(`完成${item.itemname}每天发送`)
       } catch (error) {
         handleError(error);
@@ -89,7 +89,7 @@ async function sendWeekPush() {
       try {
         const weekdata = getweekdbdata(item.itemname, 7)
         const markdowntext = await getdeepseek(weekdata, 0)
-        await sendMarkdownToTelegram(item.chat_id, item.message_thread_id,markdowntext + "\n笔记链接：" + item.git_url)
+        await sendMarkdownToTelegram(item.chat_id,markdowntext + "\n笔记链接：" + item.git_url)
         console.log(`完成${item.itemname}每周发送`)
       } catch (error) {
         handleError(error);
@@ -104,7 +104,7 @@ async function sendActivePush(message) {
   for (const item of itemdata) {
     if (item.active === true) {
       try {
-        await sendMarkdownToTelegram(item.chat_id, item.message_thread_id,message)
+        await sendMarkdownToTelegram(item.chat_id,message)
         console.log(`完成${item.itemname}群组信息发送`)
       } catch (error) {
         handleError(error);
@@ -132,7 +132,7 @@ async function sendnumPush(item_id, message) {
 
   for (const num of numbers) {
     try {
-      await sendMarkdownToTelegram(itemdata[num].chat_id,itemdata[num].message_thread_id, message);
+      await sendMarkdownToTelegram(itemdata[num].chat_id, message);
       console.log(`完成${itemdata[num].itemname}群组信息发送`);
     } catch (error) {
       handleError(error);
@@ -146,7 +146,7 @@ async function sendAllPush(message) {
   for (const item of itemdata) {
 
     try {
-      await sendMarkdownToTelegram(item.chat_id, item.message_thread_id,message)
+      await sendMarkdownToTelegram(item.chat_id,message)
       console.log(`完成${item.itemname}群组信息发送`)
     } catch (error) {
       handleError(error);

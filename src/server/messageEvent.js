@@ -1,5 +1,5 @@
 import fs from 'fs';
-import { sendMarkdownToTelegram, sendownertext } from "../tools/telegrembot.js"
+import {  sendownertext } from "../tools/telegrembot.js"
 import { helpCommand } from "./helpCommand.js"
 import {
   sendActivePush,
@@ -128,14 +128,15 @@ const messageEvent = {
           datajson.owner_chat_id = chatid
 
         });
-        sendownertext(`完成拥有者chatid更新：${chatid}`);
+        const chatidtext=JSON.stringify(chatid)
+        sendownertext(`完成拥有者chatid更新：${chatidtext}`);
       } catch (error) {
         handleError(error);
       }
     },
   },
   addprogram: {
-    action: async (externalParam, chatid,messagethreadid) => {
+    action: async (externalParam, chatid) => {
       try {
         let newid = 0;
         await updateJsonFile(loaditempath, (datajson) => {
@@ -145,7 +146,6 @@ const messageEvent = {
             itemname: externalParam[1],
             git_url: `https://github.com/IntensiveCoLearning/${externalParam[1]}.git`,
             chat_id: chatid,
-            message_thread_id: messagethreadid,
             start_date: externalParam[2],
             end_date: externalParam[3],
             signupDeadline: externalParam[4],
@@ -190,18 +190,17 @@ const messageEvent = {
     },
   },
   changeid: {
-    action: async (externalParam, chatid,messagethreadid) => {
+    action: async (externalParam, chatid) => {
       try {
         await updateJsonFile(loaditempath, (datajson) => {
 
           datajson[externalParam[1]].chat_id = chatid;
-          if(messagethreadid){
-          datajson[externalParam[1]].message_thread_id = messagethreadid;
-          }
+  
 
         });
         const datajson = await readJsonFile(loaditempath)
-        sendownertext(`改变${datajson[externalParam[1]].itemname}项目chatid：${datajson[externalParam[1]].chat_id}项目话题id：${datajson[externalParam[1]].message_thread_id}`);
+        const itemchatid=JSON.stringify(datajson[externalParam[1]].chat_id)
+        sendownertext(`改变${datajson[externalParam[1]].itemname}项目chatid：${itemchatid}`);
 
       } catch (error) {
         handleError(error);

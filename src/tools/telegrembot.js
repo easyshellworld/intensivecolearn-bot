@@ -28,19 +28,19 @@ export async function sendownertext(text) {
     }
   }
 }
-export async function sendMarkdownToTelegram(chatId, messageThreadId, text) {
-  if (chatId != '' || chatId != null) {
+export async function sendMarkdownToTelegram(chatId, text) {
+  if (chatId) {
 
     try {
       let response
-      if (messageThreadId) {
-          response = await bot.api.sendMessage(chatId, text, {
-          message_thread_id: messageThreadId,
+      if (chatId.message_thread_id) {
+          response = await bot.api.sendMessage(chatId.chat_id, text, {
+          message_thread_id: chatId.message_thread_id,
           parse_mode: 'Markdown',      // 或者试试 'MarkdownV2'
           disable_web_page_preview: true,
         });
       } else {
-         response = await bot.api.sendMessage(chatId, text, {
+         response = await bot.api.sendMessage(chatId.chat_id, text, {
           // message_thread_id: messageThreadId,  // 注意是对象里的字段
 
           parse_mode: 'Markdown'

@@ -3,7 +3,9 @@ import { getownerchatid} from '../utils/config.js';
 
 
 export async function helpCommand() {
-    const ownerchatid=await getownerchatid()
+    const chatid=await getownerchatid()
+    const ownerchatid={chat_id:chatid}
+   
   const helpMessage = `
 * **/initchatid**
   初始化拥有者 chatid，例如：

@@ -34,6 +34,6 @@ export async function getownerchatid() {
   const configPath = path.join(__dirname, '..', '..', 'conf', 'task.json');
   const data = await fs.readFile(configPath, 'utf-8');
   const datajson = JSON.parse(data);
-  return datajson.owner_chat_id
+  return datajson.owner_chat_id.chat_id
 
 }
