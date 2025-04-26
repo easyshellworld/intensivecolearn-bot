@@ -18,7 +18,7 @@ export function startBot() {
 
       const chatId={
         chat_id:ctx.chat.id,
-        messagethreadid:ctx.message.message_thread_id
+        message_thread_id:ctx.message.message_thread_id
       }
       
       // 如果消息是来自于设定的 owner 用户

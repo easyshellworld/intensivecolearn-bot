@@ -65,7 +65,7 @@ export async function helpCommand() {
 
 * **/rmtask<任务ID>**
   删除指定的定时任务，例如：
- /rms 0
+ /rmtask 0
 
 * **/help**
   查看所有可用命令的说明，例如：

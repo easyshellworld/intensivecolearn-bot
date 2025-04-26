@@ -29,6 +29,7 @@ export async function sendownertext(text) {
   }
 }
 export async function sendMarkdownToTelegram(chatId, text) {
+ // console.log(chatId)
   if (chatId) {
 
     try {
