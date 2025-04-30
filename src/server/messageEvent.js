@@ -90,6 +90,7 @@ async function deleteitemFromJson(filePath, externalParam) {
     });
     datajson.task = tasks;
   });
+  sendownertext(`删除：${item}`);
 }
 
 
