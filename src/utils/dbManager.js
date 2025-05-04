@@ -41,6 +41,16 @@ export function initDB(itemname) {
         UNIQUE(user, date)
       )
     `);
+    db.exec(`
+  CREATE TABLE IF NOT EXISTS ${safeItemName}_daily_registration_summary (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  date TEXT NOT NULL UNIQUE,                -- 日期（例如 '2025-05-04'）
+  new_user_count INTEGER NOT NULL,          -- 当天新增用户数
+  total_user_count INTEGER NOT NULL,        -- 截至该日总用户数
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP -- 记录生成时间
+);
+    `);
+
 
     console.log('Database initialized successfully.');
   } catch (error) {

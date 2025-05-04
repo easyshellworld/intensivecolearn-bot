@@ -12,7 +12,23 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const GIT_BASE_PATH = path.join(__dirname, '..', '..', 'data', 'githubgit');
 
+function getYesterdayTotalUserCount(db,safeItemName,user_count) {
+ 
+    
 
+    const date = new Date();
+    date.setDate(date.getDate() - 1);
+    const ymd = date.toISOString().slice(0, 10); // 'YYYY-MM-DD'
+
+    const row = db.prepare(`
+      SELECT total_user_count FROM ${safeItemName}_daily_registration_summary
+      WHERE date = ?
+    `).get(ymd);
+    let  olduser_count=row?.total_user_count || 0;
+    const new_user_count=Number(user_count)-Number(olduser_count)
+    return new_user_count
+ 
+}
 
 
 async function getgitdata(itemname) {
@@ -31,6 +47,10 @@ async function getgitdata(itemname) {
     INSERT INTO ${safeItemName}_notes (repo, user, date, note)
     VALUES (?, ?, ?, ?)
   `);
+  const insertSummaryStmt = db.prepare(`
+    INSERT INTO ${safeItemName}_daily_registration_summary (date, new_user_count, total_user_count)
+    VALUES (?, ?, ?)
+  `);
   const repoInfo = findItemByName(config, itemname)
   if (repoInfo != null) {
     try {
@@ -40,6 +60,16 @@ async function getgitdata(itemname) {
       const readmeContent = await fs.readFile(readmePath, 'utf-8');
       const mdFiles = parseCommitTable(readmeContent);
       console.log(`Parsed markdown files for repo ${repoInfo.itemname}:`, mdFiles);
+      if(repoInfo.registration_active=true){
+      const today = new Date().toISOString().slice(0, 10);
+      const user_count=mdFiles.length
+      const new_user_count=getYesterdayTotalUserCount(db,safeItemName,user_count);
+      insertSummaryStmt.run(
+        today, 
+        new_user_count, 
+        user_count
+      );
+    }
 
       for (const mdFile of mdFiles) {
         const mdPath = path.join(repoDir, mdFile);
@@ -185,6 +215,31 @@ WHERE date = date('now', '-${day} day')
 
 }
 
+function getTodayStats(safeItemName) {
+  const db = initDB(safeItemName);
+  const today = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
+
+  const row = db.prepare(`
+    SELECT new_user_count, total_user_count
+    FROM ${safeItemName}_daily_registration_summary
+    WHERE date = ?
+  `).get(today);
+
+  if (row) {
+    return {
+      new_user_count: row.new_user_count,
+      total_user_count: row.total_user_count
+    };
+  }
+
+  // 如果没有今天的记录，返回默认值
+  return {
+    new_user_count: 0,
+    total_user_count: 0
+  };
+}
+
+
 /* export async function getnewdata(itemname,day){
   await getdailycheckin(itemname)
   await getgitdata(itemname)
@@ -199,5 +254,6 @@ export {
   getgitdata,
   getweekdbdata,
   getdaydbdata,
+  getTodayStats
 }
 

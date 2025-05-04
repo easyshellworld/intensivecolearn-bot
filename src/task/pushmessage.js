@@ -3,6 +3,7 @@ import {
   getgitdata,
   getweekdbdata,
   getdaydbdata,
+  getTodayStats
 } from '../tools/getgitdata.js';
 import { loadConfig, writerConfig } from '../utils/config.js';
 import { sendMarkdownToTelegram, sendownertext } from '../tools/telegrembot.js'
@@ -78,9 +79,26 @@ async function sendDayPush() {
     }
 
   }
-
-
 }
+
+async function sendDailyRegistrationReport() {
+
+  const itemdata = await loadConfig()
+  for (const item of itemdata) {
+    if (item.active === true && item.registration_active === true) {
+      try {
+        const {new_user_count,total_user_count} = getTodayStats(item.itemname)
+        const markdowntext = `**共学${item.itemname}**\n昨日共学报名情况:\n新增报名人数：${new_user_count}\n已报名总人数：${total_user_count}\n笔记链接：${item.git_url}`
+        await sendMarkdownToTelegram(item.chat_id,markdowntext)
+        console.log(`完成${item.itemname}每天报名发送`)
+      } catch (error) {
+        handleError(error);
+      }
+    }
+
+  }
+}
+
 
 async function sendWeekPush() {
   const itemdata = await loadConfig()
@@ -170,7 +188,8 @@ export {
   sendWeekPush,
   sendActivePush,
   sendnumPush,
-  sendAllPush
+  sendAllPush,
+  sendDailyRegistrationReport
 
 
 }
