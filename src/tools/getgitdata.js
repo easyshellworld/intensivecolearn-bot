@@ -217,7 +217,7 @@ WHERE date = date('now', '-${day} day')
 
 function getTodayStats(safeItemName) {
   const db = initDB(safeItemName);
-  const today = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
+  const today = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 
   const row = db.prepare(`
     SELECT new_user_count, total_user_count

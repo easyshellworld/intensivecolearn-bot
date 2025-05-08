@@ -2,13 +2,16 @@
 import messageEvent from "./messageEvent.js";
 import { sendownertext} from "../tools/telegrembot.js"
 
+
 function cleanSlashCommand(text)  {
     return text.startsWith('/') ? text.slice(1) : text;
   }
 
 async function getmessage(content,chatId) {
-  try {
   
+if(/\/.*/.test(content)){
+  try {
+    
     const mytext = cleanSlashCommand(content)
     const mytest = mytext.split(" ")
 
@@ -24,7 +27,7 @@ async function getmessage(content,chatId) {
     sendownertext(error.message);
     console.error("捕获到错误:", error.message);
   }
-
+}
 
  
 
