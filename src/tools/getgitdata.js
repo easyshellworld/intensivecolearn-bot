@@ -215,7 +215,8 @@ WHERE date = date('now', '-${day} day')
 
 }
 
-function getTodayStats(safeItemName) {
+function getTodayStats(itemname) {
+  const safeItemName = itemname.replace(/-/g, '_');
   const db = initDB(safeItemName);
   const today = new Date(Date.now() - 86400000).toISOString().slice(0, 10);
 
