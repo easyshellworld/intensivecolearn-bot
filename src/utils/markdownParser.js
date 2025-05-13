@@ -20,61 +20,60 @@ export function parseCommitTable(readmeContent) {
     return Array.from(mdFiles);
   }
 
-  export function parseTable(readmeContent){
-    const tableContent = gettableMatch(readmeContent);
-    if (!tableContent) return [];
-    
-   const dates = [];
-  for (let day = 10; day <= 31; day++) {
-    dates.push(`3.${day}`);
-  }
-  for (let day = 1; day <= 20; day++) {
-    dates.push(`4.${String(day).padStart(2, '0')}`);
-  }
-  
+  export function parseTable(readmeContent) {
+  const tableContent = gettableMatch(readmeContent);
+  if (!tableContent) return [];
+
   // Split the content into lines
   const lines = tableContent.trim().split('\n');
-  
+  if (lines.length < 2) return [];
+
+  // 提取日期行（假设第一行为表头）
+  const headerLine = lines[0];
+  const dateCells = headerLine
+    .split('|')
+    .map(cell => cell.trim())
+    .slice(1) // 去掉 Name 列
+    .filter(cell => /\d+\.\d+/.test(cell)); // 确保是日期格式
+
   const result = [];
   const currentYear = new Date().getFullYear();
-  
-  // Process each line
-  for (let i = 0; i < lines.length; i++) {
+
+  // 遍历数据行
+  for (let i = 1; i < lines.length; i++) {
     const line = lines[i];
     if (line.startsWith('| ---') || !line.includes('|')) continue;
-    
+
     const cells = line.split('|').map(c => c.trim()).filter(Boolean);
     if (cells.length < 2) continue;
-    
-    // Extract username from markdown link if present
+
+    // 提取用户名
     const userCell = cells[0];
     const match = userCell.match(/\[(.*?)\]/);
     const username = match ? match[1] : userCell;
-    
-    // Process status cells
+
+    // 处理状态单元格
     const statusCells = cells.slice(1);
-    
+
     statusCells.forEach((status, idx) => {
       if (!['✅', '⭕️', '❌', ''].includes(status)) return;
-      if (status === '') return; // Skip empty cells
-      
-      if (idx < dates.length) {
-        const dateStr = dates[idx];
-        const [month, day] = dateStr.split('.');
-        const formattedDate = `${currentYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
-        
-        result.push({
-          user: username,
-          date: formattedDate,
-          status,
-          is_active: status !== '❌'
-        });
-      }
+      if (status === '' || idx >= dateCells.length) return;
+
+      const dateStr = dateCells[idx];
+      const [month, day] = dateStr.split('.');
+      const formattedDate = `${currentYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+
+      result.push({
+        user: username,
+        date: formattedDate,
+        status,
+        is_active: status !== '❌'
+      });
     });
   }
-  
+
   return result;
-  }
+}
 
 
   

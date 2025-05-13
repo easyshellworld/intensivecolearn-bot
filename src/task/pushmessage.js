@@ -70,9 +70,13 @@ async function sendDayPush() {
     if (item.active === true && item.registration_active === false) {
       try {
         const daydata = getdaydbdata(item.itemname, 1)[0]
-        const markdowntext = `**${item.itemname}**\n昨日共学情况:\n完成学习人数：${daydata.completed_checkins}\n请假人数：${daydata.vacation_days}\n淘汰人数：${daydata.eliminated_users}\n当前存活人数：${daydata.active_users}\n笔记链接：${item.git_url}`
+        const giturl=item.git_url.replace(/\.git$/, "");
+        console.log(daydata)
+       if(daydata.completed_checkins!=null){
+        const markdowntext = `**${item.itemname}**\n昨日共学情况:\n完成学习人数：${daydata.completed_checkins}\n请假人数：${daydata.vacation_days}\n淘汰人数：${daydata.eliminated_users}\n当前存活人数：${daydata.active_users}\n笔记链接：${giturl}`
         await sendMarkdownToTelegram(item.chat_id,markdowntext)
         console.log(`完成${item.itemname}每天发送`)
+        }
       } catch (error) {
         handleError(error);
       }
@@ -86,9 +90,10 @@ async function sendDailyRegistrationReport() {
   const itemdata = await loadConfig()
   for (const item of itemdata) {
     if (item.active === true && item.registration_active === true) {
+      const giturl=item.git_url.replace(/\.git$/, "");
       try {
         const {new_user_count,total_user_count} = getTodayStats(item.itemname)
-        const markdowntext = `**共学${item.itemname}**\n昨日共学报名情况:\n新增报名人数：${new_user_count}\n已报名总人数：${total_user_count}\n笔记链接：${item.git_url}`
+        const markdowntext = `**共学${item.itemname}**\n昨日共学报名情况:\n新增报名人数：${new_user_count}\n已报名总人数：${total_user_count}\n笔记链接：${giturl}`
         await sendMarkdownToTelegram(item.chat_id,markdowntext)
         console.log(`完成${item.itemname}每天报名发送`)
       } catch (error) {
@@ -104,10 +109,13 @@ async function sendWeekPush() {
   const itemdata = await loadConfig()
   for (const item of itemdata) {
     if (item.active === true && item.registration_active === false) {
+      const giturl=item.git_url.replace(/\.git$/, "");
       try {
         const weekdata = getweekdbdata(item.itemname, 7)
         const markdowntext = await getdeepseek(weekdata, 0)
-        await sendMarkdownToTelegram(item.chat_id,markdowntext + "\n笔记链接：" + item.git_url)
+        if(markdowntext!=null){
+        await sendMarkdownToTelegram(item.chat_id,markdowntext + "\n笔记链接：" + giturl)
+        }
         console.log(`完成${item.itemname}每周发送`)
       } catch (error) {
         handleError(error);
