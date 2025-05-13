@@ -11,7 +11,8 @@ import {
     sendActivePush,
     sendnumPush,
     sendAllPush,
-    sendDailyRegistrationReport
+    sendDailyRegistrationReport,
+    sendForum
 } from "./pushmessage.js";
 
 
@@ -25,7 +26,8 @@ const functions = {
     sendActivePush,
     sendnumPush,
     sendAllPush,
-    sendDailyRegistrationReport
+    sendDailyRegistrationReport,
+    sendForum
    
 };
 

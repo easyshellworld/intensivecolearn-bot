@@ -5,9 +5,10 @@ import {
   getdaydbdata,
   getTodayStats
 } from '../tools/getgitdata.js';
-import { loadConfig, writerConfig } from '../utils/config.js';
+import { loadConfig, writerConfig, loadforum } from '../utils/config.js';
 import { sendMarkdownToTelegram, sendownertext } from '../tools/telegrembot.js'
 import { getzhipu, getdeepseek } from "../aiProvider/aiProvider.js"
+import { getforumdata } from '../tools/getforum.js'
 
 function handleError(error) {
   sendownertext(error.message);
@@ -186,6 +187,25 @@ async function sendAllPush(message) {
   }
 }
 
+async function sendForum() {
+  const itemdata = await loadforum()
+  const forumdata = await getforumdata()
+  const filteredData = forumdata.filter(item => item.lastUpdated.includes('m'));
+ 
+  itemdata.forEach(item => {
+    filteredData.forEach(entry=>{
+      if(item.category==entry.category){
+        sendMarkdownToTelegram(item.chat_id, `论坛最新帖子\n${entry.title}\n${entry.link}`);
+      }
+    })
+   
+    
+  });
+  
+
+  
+}
+
 
 
 
@@ -197,7 +217,8 @@ export {
   sendActivePush,
   sendnumPush,
   sendAllPush,
-  sendDailyRegistrationReport
+  sendDailyRegistrationReport,
+  sendForum
 
 
 }

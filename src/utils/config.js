@@ -37,3 +37,10 @@ export async function getownerchatid() {
   return datajson.owner_chat_id.chat_id
 
 }
+
+
+export async function loadforum() {
+  const configPath = path.join(__dirname, '..', '..', 'conf', 'forum.json');
+  const data = await fs.readFile(configPath, 'utf-8');
+  return JSON.parse(data);
+}
