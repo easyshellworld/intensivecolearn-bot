@@ -195,7 +195,7 @@ async function sendForum() {
   itemdata.forEach(item => {
     filteredData.forEach(entry=>{
       if(item.category==entry.category){
-        sendMarkdownToTelegram(item.chat_id, `论坛最新帖子\n${entry.title}\n${entry.link}`);
+        sendMarkdownToTelegram(item.chat_id, `论坛更新帖子\n${entry.title}\n${entry.link}`);
       }
     })
    
