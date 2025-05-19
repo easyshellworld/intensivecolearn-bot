@@ -25,5 +25,8 @@
     "puppeteer": "^24.8.2",
     "schedule": "^0.5.0",
     "simple-git": "^3.27.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
   }
 }

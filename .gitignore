@@ -71,5 +71,6 @@ config/local.json
 #忽略数据文件
 conf/item.json
 conf/task.json
+conf/forum.json
 data/datadb/
 data/githubgit/

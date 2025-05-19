@@ -26,5 +26,12 @@
     "chat_id": {
       "chat_id": -4763795854
     }
+  },
+  {
+    "id": 4,
+    "category": "test",
+    "chat_id": {
+      "chat_id": -4763795854
+    }
   }
 ]

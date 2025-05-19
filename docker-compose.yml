@@ -1,0 +1,30 @@
+services:
+  in-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: in-bot
+    working_dir: /app
+    
+    # 使用当前用户的 UID 和 GID
+    user: "${UID:-1000}:${GID:-1000}"
+
+    volumes:
+      - ./conf:/app/conf
+      - ./data:/app/data
+    
+    env_file:
+      - .env
+
+    restart: unless-stopped
+
+    stop_signal: SIGTERM
+    stop_grace_period: 30s
+
+    # 确保目录存在并设置正确权限
+    command: >
+      sh -c "
+        mkdir -p /app/conf /app/data &&
+        chmod 755 /app/conf /app/data &&
+        npm start
+      "
