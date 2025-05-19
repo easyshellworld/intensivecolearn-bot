@@ -1,14 +1,16 @@
 {
-  "owner_chat_id":null,
+  "owner_chat_id": {
+    "chat_id": -4763795854
+  },
   "task": [
     {
       "id": 0,
-      "time": "D00:00",
+      "time": "D00:05",
       "task": "checkItem"
     },
     {
       "id": 1,
-      "time": "D00:01",
+      "time": "D00:10",
       "task": "pullgitdata"
     },
     {
@@ -18,7 +20,17 @@
     },
     {
       "id": 3,
-      "time": "W4:18:00",
+      "time": "D14:15",
+      "task": "sendDailyRegistrationReport"
+    },
+    {
+      "id": 4,
+      "time": "H00",
+      "task": "sendForum"
+    },
+    {
+      "id": 5,
+      "time": "W6:09:00",
       "task": "sendWeekPush"
     }
   ]

@@ -3,19 +3,24 @@
     "id": 0,
     "itemname": "IntensiveCoLearning",
     "git_url": "https://intensivecolearn.ing/",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 6215
+    },
     "start_date": null,
     "end_date": null,
     "signupDeadline": null,
     "active": false,
     "registration_active": false,
-    "description":"残酷共学主群频道，以及主页"
+    "description": "残酷共学主群频道，以及主页"
   },
   {
     "id": 1,
     "itemname": "english",
     "git_url": "https://github.com/IntensiveCoLearning/english.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -4763795854
+    },
     "start_date": "2024-06-24",
     "end_date": "2024-07-14",
     "signupDeadline": "2024-06-23",
@@ -26,7 +31,10 @@
     "id": 2,
     "itemname": "Web3-URL",
     "git_url": "https://github.com/IntensiveCoLearning/Web3-URL.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 8748
+    },
     "start_date": "2024-07-15",
     "end_date": "2024-08-04",
     "signupDeadline": "2024-07-14",
@@ -37,7 +45,10 @@
     "id": 3,
     "itemname": "ZK",
     "git_url": "https://github.com/IntensiveCoLearning/ZK.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 9644
+    },
     "start_date": "2024-07-29",
     "end_date": "2024-08-18",
     "signupDeadline": "2024-07-28",
@@ -48,7 +59,10 @@
     "id": 4,
     "itemname": "DeFi",
     "git_url": "https://github.com/IntensiveCoLearning/DeFi.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 11209
+    },
     "start_date": "2024-08-19",
     "end_date": "2024-09-08",
     "signupDeadline": "2024-08-18",
@@ -59,7 +73,10 @@
     "id": 5,
     "itemname": "Narrative-Reading",
     "git_url": "https://github.com/IntensiveCoLearning/Narrative-Reading.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": null,
+      "message_thread_id": 0
+    },
     "start_date": "2024-09-11",
     "end_date": "2024-10-01",
     "signupDeadline": "2024-09-10",
@@ -70,7 +87,10 @@
     "id": 6,
     "itemname": "starknet",
     "git_url": "https://github.com/IntensiveCoLearning/starknet.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 11973
+    },
     "start_date": "2024-09-18",
     "end_date": "2024-10-08",
     "signupDeadline": "2024-09-17",
@@ -81,7 +101,10 @@
     "id": 7,
     "itemname": "english_2nd",
     "git_url": "https://github.com/IntensiveCoLearning/english_2nd.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 6912
+    },
     "start_date": "2024-10-08",
     "end_date": "2024-10-28",
     "signupDeadline": "2024-10-07",
@@ -92,7 +115,10 @@
     "id": 8,
     "itemname": "Arbitrum",
     "git_url": "https://github.com/IntensiveCoLearning/Arbitrum.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 15575
+    },
     "start_date": "2024-12-10",
     "end_date": "2024-12-30",
     "signupDeadline": "2024-12-09",
@@ -103,7 +129,10 @@
     "id": 9,
     "itemname": "Optimism",
     "git_url": "https://github.com/IntensiveCoLearning/Optimism.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 18240
+    },
     "start_date": "2025-01-06",
     "end_date": "2025-01-26",
     "signupDeadline": "2025-01-05",
@@ -114,7 +143,10 @@
     "id": 10,
     "itemname": "Ethereum-Protocol-Fellowship",
     "git_url": "https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": null,
+      "message_thread_id": 0
+    },
     "start_date": "2025-02-06",
     "end_date": "2025-03-02",
     "signupDeadline": "2025-02-05",
@@ -125,7 +157,10 @@
     "id": 11,
     "itemname": "Ten-Days-on-Crypto-Ideology",
     "git_url": "https://github.com/IntensiveCoLearning/Ten-Days-on-Crypto-Ideology.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 3333
+    },
     "start_date": "2025-02-20",
     "end_date": "2025-03-01",
     "signupDeadline": "2025-02-19",
@@ -136,7 +171,10 @@
     "id": 12,
     "itemname": "Start-Web3",
     "git_url": "https://github.com/IntensiveCoLearning/Start-Web3.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 21734
+    },
     "start_date": "2025-03-03",
     "end_date": "2025-03-23",
     "signupDeadline": "2025-03-02",
@@ -147,22 +185,70 @@
     "id": 13,
     "itemname": "Ethereum-Protocol-Fellowship-3",
     "git_url": "https://github.com/IntensiveCoLearning/Ethereum-Protocol-Fellowship-3.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002137158014,
+      "message_thread_id": 5427
+    },
     "start_date": "2025-03-10",
     "end_date": "2025-04-20",
     "signupDeadline": "2025-03-09",
-    "active": true,
+    "active": false,
     "registration_active": false
   },
   {
     "id": 14,
     "itemname": "Superchain",
     "git_url": "https://github.com/IntensiveCoLearning/Superchain.git",
-    "chat_id": null,
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 23125
+    },
     "start_date": "2025-03-31",
     "end_date": "2025-04-12",
     "signupDeadline": "2025-03-30",
     "active": false,
+    "registration_active": false
+  },
+  {
+    "id": 15,
+    "itemname": "Running",
+    "git_url": "https://github.com/IntensiveCoLearning/running.git",
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 24558
+    },
+    "start_date": "2025-05-11",
+    "end_date": "2025-05-31",
+    "signupDeadline": "2025-05-10",
+    "active": true,
+    "registration_active": false
+  },
+  {
+    "id": 16,
+    "itemname": "ai-agent",
+    "git_url": "https://github.com/IntensiveCoLearning/ai-agent.git",
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 24843
+    },
+    "start_date": "2025-06-01",
+    "end_date": "2025-06-21",
+    "signupDeadline": "2025-05-31",
+    "active": true,
+    "registration_active": true
+  },
+  {
+    "id": 17,
+    "itemname": "EIP-7702",
+    "git_url": "https://github.com/IntensiveCoLearning/EIP-7702.git",
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 24572
+    },
+    "start_date": "2025-05-14",
+    "end_date": "2025-05-23",
+    "signupDeadline": "2025-05-13",
+    "active": true,
     "registration_active": false
   }
 ]

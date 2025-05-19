@@ -1,0 +1,33 @@
+[
+  {
+    "id": 0,
+    "category": "General",
+    "chat_id": {
+      "chat_id": -1002132351527
+    }
+  },
+  {
+    "id": 1,
+    "category": "Governance",
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 30
+    }
+  },
+  {
+    "id": 2,
+    "category": "Pod Proposal",
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 21792
+    }
+  },
+  {
+    "id": 3,
+    "category": "Research",
+    "chat_id": {
+      "chat_id": -1002132351527,
+      "message_thread_id": 22508
+    }
+  }
+]
