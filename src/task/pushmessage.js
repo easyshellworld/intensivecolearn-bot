@@ -190,6 +190,7 @@ async function sendAllPush(message) {
 async function sendForum() {
   const itemdata = await loadforum()
   const forumdata = await getforumdata()
+  if(forumdata.length>0){
   const filteredData = forumdata.filter(item => item.lastUpdated.includes('m'));
  
   itemdata.forEach(item => {
@@ -198,9 +199,10 @@ async function sendForum() {
         sendMarkdownToTelegram(item.chat_id, `论坛更新帖子\n${entry.title}\n${entry.link}`);
       }
     })
-   
+  
     
   });
+}
   
 
   

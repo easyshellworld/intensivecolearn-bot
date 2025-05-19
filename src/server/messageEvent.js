@@ -11,6 +11,7 @@ import {
 
 const loaditempath = "./conf/item.json"
 const loadtaskpath = './conf/task.json'
+const loadforumpath = './conf/forum.json'
 
 
 // 读取JSON文件
@@ -171,7 +172,11 @@ const messageEvent = {
         else if (externalParam?.[1] == "program") 
          {
           data = fs.readFileSync(loaditempath, 'utf-8');
-        }else{
+        }
+        else if (externalParam?.[1] == "forum") 
+          {
+           data = fs.readFileSync(loadforumpath, 'utf-8');
+         }else{
           data = fs.readFileSync(loaditempath, 'utf-8');
         }
         const datajson = JSON.parse(data);
@@ -322,6 +327,36 @@ const messageEvent = {
     action: async (externalParam) => {
       try {
         deleteTaskFromJson(loadtaskpath, externalParam)
+      } catch (error) {
+        handleError(error);
+      }
+    },
+  },  
+  addforum: {
+    action: async (externalParam, chatid) => {
+      try {
+        let newid = 0;
+        await updateJsonFile(loadforumpath, (datajson) => {
+          newid = datajson.length
+          datajson.push({
+            id: newid,
+            category: externalParam[1],
+            chat_id: chatid,
+            
+          });
+
+        });
+        const chatidtext=JSON.stringify(chatid)
+        sendownertext(`加入：id:${newid}\n板块${externalParam[1]}，频道：${chatidtext}`);
+      } catch (error) {
+        handleError(error);
+      }
+    },
+  },
+  rmforum: {
+    action: async (externalParam) => {
+      try {
+        deleteitemFromJson(loadforumpath, externalParam)
       } catch (error) {
         handleError(error);
       }
