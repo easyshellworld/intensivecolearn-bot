@@ -9,7 +9,14 @@ import * as cheerio from 'cheerio';
  */
 async function extractForumTopics(url, recentHours = 24) {
   const browser = await puppeteer.launch({
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    args: ['--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--disable-dev-shm-usage',
+    '--disable-gpu',
+    '--no-zygote',
+    '--single-process',],
+    headless: true,
+    protocolTimeout: 60000, 
   });
 
   const page = await browser.newPage();
