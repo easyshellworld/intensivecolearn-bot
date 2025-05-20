@@ -18,7 +18,7 @@ async function extractForumTopics(url, recentHours = 24) {
     'AppleWebKit/537.36 (KHTML, like Gecko) ' +
     'Chrome/114.0.0.0 Safari/537.36'
   );
-  await page.goto(url, { waitUntil: 'networkidle2' });
+  await page.goto(url, { waitUntil: 'networkidle2' ,timeout: 60000});
 
   const html = await page.content();
   await browser.close();
