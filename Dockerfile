@@ -47,7 +47,7 @@ COPY --from=builder /app/node_modules ./node_modules
 COPY . .
 
 # 创建必要的目录并设置权限
-RUN mkdir -p /app/conf /app/data \
+RUN mkdir -p /app/conf /app/data /app/data/datadb /app/data/githubgit \
     && chmod 755 /app/conf /app/data
 
 # 设置 Puppeteer 环境变量

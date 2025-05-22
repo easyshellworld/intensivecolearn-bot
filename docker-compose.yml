@@ -7,8 +7,8 @@ services:
     working_dir: /app
     
     # 使用当前用户的 UID 和 GID
-    user: "${UID:-1000}:${GID:-1000}"
-
+    user: "1000:1000"
+    
     volumes:
       - ./conf:/app/conf
       - ./data:/app/data
